@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Diwali — Festival of Lights</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <main>
+            <div class="hero">
+                <div class="badge">DIW<span style="font-size:.65rem">ALI</span></div>
+                <div>
+                    <h1>Diwali — Festival of Lights</h1>
+                    <p class="lead">Diwali (Deepavali) is a joyful five-day celebration symbolizing light over darkness and good over evil. Below are each day's special events and details you can share with Adelia. Use the Firecrackers button for a celebratory animation!</p>
+                </div>
+            </div>
+            <!-- EVENTS -->
+            <section class="events" id="eventsList">
+                <!-- Day 1 -->
+                <article class="card" data-event="Dhanteras">
+                    <div class="thumb">
+                        <img src="images/diwali1.jpg" alt="Dhanteras - diwali1" id="img-d1">
+                    </div>
+                    <div class="meta">
+                        <h3>Dhanteras <span class="small muted">— Day 1</span></h3>
+                        <p>On Dhanteras, people clean and decorate their homes. It's considered auspicious to buy new utensils, gold, or silver on this day.</p>
+                        <div class="actions">
+                            <button class="btn ghost eventBtn" data-name="Dhanteras">Wish</button>
+                            <button class="btn" data-record-for="Dhanteras">Add record</button>
+                            <button class="btn" data-date-for="Dhanteras">Dates & notes</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Day 2 -->
+                <article class="card" data-event="Naraka Chaturdashi">
+                    <div class="thumb">
+                        <img src="images/diwali2.jpg" alt="Naraka Chaturdashi - diwali2" id="img-d2">
+                    </div>
+                    <div class="meta">
+                        <h3>Naraka Chaturdashi (Choti Diwali) <span class="small muted">— Day 2</span></h3>
+                        <p>Commemorates Lord Krishna's victory over Narakasura. People take ritual baths, apply oils, and light small diyas (lamps).</p>
+                        <div class="actions">
+                            <button class="btn ghost eventBtn" data-name="Naraka Chaturdashi">Wish</button>
+                            <button class="btn" data-record-for="Naraka Chaturdashi">Add record</button>
+                            <button class="btn" data-date-for="Naraka Chaturdashi">Dates & notes</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Day 3 -->
+                <article class="card" data-event="Lakshmi Puja">
+                    <div class="thumb">
+                        <img src="images/diwali3.jpg" alt="Lakshmi Puja - diwali3" id="img-d3">
+                    </div>
+                    <div class="meta">
+                        <h3>Lakshmi Puja (Main Diwali) <span class="small muted">— Day 3</span></h3>
+                        <p>The most important day. Families perform Lakshmi Puja to honor the goddess of wealth. Homes light up with diyas and fireworks.</p>
+                        <div class="actions">
+                            <button class="btn ghost eventBtn" data-name="Lakshmi Puja">Wish</button>
+                            <button class="btn" data-record-for="Lakshmi Puja">Add record</button>
+                            <button class="btn" data-date-for="Lakshmi Puja">Dates & notes</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Day 4 -->
+                <article class="card" data-event="Govardhan Puja / Balipratipada">
+                    <div class="thumb">
+                        <img src="images/diwali4.jpg" alt="Govardhan Puja - diwali4" id="img-d4">
+                    </div>
+                    <div class="meta">
+                        <h3>Govardhan Puja / Balipratipada <span class="small muted">— Day 4</span></h3>
+                        <p>Regional differences: Govardhan Puja remembers Krishna lifting Govardhan hill; some celebrate Balipratipada for King Bali.</p>
+                        <div class="actions">
+                            <button class="btn ghost eventBtn" data-name="Govardhan Puja">Wish</button>
+                            <button class="btn" data-record-for="Govardhan Puja">Add record</button>
+                            <button class="btn" data-date-for="Govardhan Puja">Dates & notes</button>
+                        </div>
+                    </div>
+                </article>
+                <!-- Day 5 -->
+                <article class="card" data-event="Bhai Dooj">
+                    <div class="thumb">
+                        <img src="images/diwali5.jpg" alt="Bhai Dooj - diwali5" id="img-d5">
+                    </div>
+                    <div class="meta">
+                        <h3>Bhai Dooj <span class="small muted">— Day 5</span></h3>
+                        <p>Celebrates the bond between brothers and sisters. Sisters perform a puja for brothers' well-being and give gifts.</p>
+                        <div class="actions">
+                            <button class="btn ghost eventBtn" data-name="Bhai Dooj">Wish</button>
+                            <button class="btn" data-record-for="Bhai Dooj">Add record</button>
+                            <button class="btn" data-date-for="Bhai Dooj">Dates & notes</button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+            <!-- firecrackers and extra -->
+            <div class="controls">
+                <div class="small muted">Tip: Replace <code>images/diwali1.jpg</code> … with your photos or links.</div>
+                <button id="fireBtn" class="btn primary">🎆 Firecrackers!</button>
+                <button id="allBoom" class="btn">✨ Boom All</button>
+            </div>
+            <canvas id="fireworksCanvas"></canvas>
+        </main>
+        <aside>
+            <h3>Records & Dates</h3>
+            <p class="muted small">For quick reference, Diwali is celebrated over 5 days. Relative placement each year:</p>
+            <ul class="small muted">
+                <li><strong>Dhanteras:</strong> 2 days before main Diwali</li>
+                <li><strong>Naraka Chaturdashi:</strong> day before Diwali</li>
+                <li><strong>Lakshmi Puja:</strong> main Diwali day</li>
+                <li><strong>Govardhan Puja:</strong> day after Diwali</li>
+                <li><strong>Bhai Dooj:</strong> 2 days after Diwali</li>
+            </ul>
+            <hr>
+            <h4>Add & view personal records</h4>
+            <div>
+                <input id="recordEvent" placeholder="Event (e.g. Lakshmi Puja)">
+                <textarea id="recordText" placeholder="Write a note or memory for Adelia..."></textarea>
+                <div class="record-buttons">
+                    <button class="btn primary" id="saveRecord">Save Record</button>
+                    <button class="btn" id="clearRecords">Clear all</button>
+                </div>
+            </div>
+            <div class="notes-list" id="notesList"></div>
+        </aside>
+    </div>
+    <div id="toast" class="toast">Hello</div>
+    <script src="script.js"></script>
+</body>
+</html>

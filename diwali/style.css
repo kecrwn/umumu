@@ -1,0 +1,501 @@
+:root {
+  /* vars */
+  --glow-sens: 30;
+  --card-bg: linear-gradient(8deg,var(--dark) 75%, color-mix(in hsl, var(--dark), white 2.5%) 75.5%);
+  --blend: soft-light;
+  --glow-blend: plus-lighter;
+  --glow-color: 40deg 80% 80%;
+  --glow-boost: 0%;
+}
+
+.light .card {
+  --card-bg: linear-gradient(8deg,color-mix(in hsl, hsl(260, 25%, 95%), var(--dark) 2.5%) 75%, hsl(260, 25%, 95%) 75.5%);
+  --blend: darken;
+  --glow-blend: luminosity;
+  --glow-color: 280deg 90% 95%;
+  --glow-boost: 15%;
+  --fg: black;
+  color: var(--fg);
+}
+
+body.light {
+  background-image: linear-gradient( 180deg, hsl(var(--h), 8%, 58%), hsl(var(--h), 15%, 42%) );
+}
+
+.card {
+  --pads: 40px;
+  --color-sens: calc(var(--glow-sens) + 20);
+  --pointer-°: 45deg;
+  position: relative;
+  width: clamp(320px, calc(100svw - calc(var(--pads) * 2)), 600px);
+  height: calc(100svh - calc(var(--pads) * 2));
+  max-height: 600px;
+  border-radius: 1.768em;
+  isolation: isolate;
+  transform: translate3d(0, 0, 0.01px);
+  display: grid;
+  border: 1px solid rgb(255 255 255 / 25%);
+  background: var(--card-bg);
+  background-repeat: no-repeat;
+}
+.card::before, .card::after, .card > .glow {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transition: opacity 0.25s ease-out;
+  z-index: -1;
+}
+.card:not(:hover):not(.animating)::before, 
+.card:not(:hover):not(.animating)::after, 
+.card:not(:hover):not(.animating) > .glow {
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out;
+}
+.card::before {
+  /* mesh gradient border */
+  border: 1px solid transparent;
+  background: linear-gradient(var(--card-bg) 0 100%) padding-box, linear-gradient(rgb(255 255 255 / 0%) 0% 100%) border-box, radial-gradient(at 80% 55%, hsla(268,100%,76%,1) 0px, transparent 50%) border-box, radial-gradient(at 69% 34%, hsla(349,100%,74%,1) 0px, transparent 50%) border-box, radial-gradient(at 8% 6%, hsla(136,100%,78%,1) 0px, transparent 50%) border-box, radial-gradient(at 41% 38%, hsla(192,100%,64%,1) 0px, transparent 50%) border-box, radial-gradient(at 86% 85%, hsla(186,100%,74%,1) 0px, transparent 50%) border-box, radial-gradient(at 82% 18%, hsla(52,100%,65%,1) 0px, transparent 50%) border-box, radial-gradient(at 51% 4%, hsla(12,100%,72%,1) 0px, transparent 50%) border-box, linear-gradient(#c299ff 0 100%) border-box;
+  /* opacity increases as pointer gets near edge */
+  opacity: calc((var(--pointer-d) - var(--color-sens)) / (100 - var(--color-sens)));
+  /* border is masked to a cone, originating from the center towards the pointer */
+  -webkit-mask-image: conic-gradient( from var(--pointer-°) at center, black 25%, transparent 40%, transparent 60%, black 75% );
+  mask-image: conic-gradient( from var(--pointer-°) at center, black 25%, transparent 40%, transparent 60%, black 75% );
+}
+.card::after {
+  /* mesh gradient background */
+  border: 1px solid transparent;
+  background: radial-gradient(at 80% 55%, hsla(268,100%,76%,1) 0px, transparent 50%) padding-box, radial-gradient(at 69% 34%, hsla(349,100%,74%,1) 0px, transparent 50%) padding-box, radial-gradient(at 8% 6%, hsla(136,100%,78%,1) 0px, transparent 50%) padding-box, radial-gradient(at 41% 38%, hsla(192,100%,64%,1) 0px, transparent 50%) padding-box, radial-gradient(at 86% 85%, hsla(186,100%,74%,1) 0px, transparent 50%) padding-box, radial-gradient(at 82% 18%, hsla(52,100%,65%,1) 0px, transparent 50%) padding-box, radial-gradient(at 51% 4%, hsla(12,100%,72%,1) 0px, transparent 50%) padding-box, linear-gradient(#c299ff 0 100%) padding-box;
+  /* 5 radial masks to create a squircle-cut-out, and then a cone-gradient originating from the center towards the pointer to highlight the edges */
+  -webkit-mask-image: linear-gradient( to bottom, black, black ), radial-gradient( ellipse at 50% 50%, black 40%, transparent 65% ), radial-gradient( ellipse at 66% 66%, black 5%, transparent 40% ), radial-gradient( ellipse at 33% 33%, black 5%, transparent 40% ), radial-gradient( ellipse at 66% 33%, black 5%, transparent 40% ), radial-gradient( ellipse at 33% 66%, black 5%, transparent 40% ), conic-gradient( from var(--pointer-°) at center, transparent 5%, black 15%, black 85%, transparent 95% );
+  mask-image: linear-gradient( to bottom, black, black ), radial-gradient( ellipse at 50% 50%, black 40%, transparent 65% ), radial-gradient( ellipse at 66% 66%, black 5%, transparent 40% ), radial-gradient( ellipse at 33% 33%, black 5%, transparent 40% ), radial-gradient( ellipse at 66% 33%, black 5%, transparent 40% ), radial-gradient( ellipse at 33% 66%, black 5%, transparent 40% ), conic-gradient( from var(--pointer-°) at center, transparent 5%, black 15%, black 85%, transparent 95% );
+  -webkit-mask-composite: source-out, source-over, source-over, source-over, source-over, source-over;
+  mask-composite: subtract,add,add,add,add,add;
+  /* opacity increases as pointer gets near edge */
+  opacity: calc((var(--pointer-d) - var(--color-sens)) / (100 - var(--color-sens)));
+  mix-blend-mode: var(--blend);
+}
+.card > .glow {
+  /* glowing border edges */
+  --outset: var(--pads);
+  /* outer padding so the glow can overflow the element without being masked */
+  inset: calc(var(--outset) * -1);
+  pointer-events: none;
+  z-index: 1;
+  /* glow is masked to a cone, originating from the center towards the pointer */
+  -webkit-mask-image: conic-gradient( from var(--pointer-°) at center, black 2.5%, transparent 10%, transparent 90%, black 97.5% );
+  mask-image: conic-gradient( from var(--pointer-°) at center, black 2.5%, transparent 10%, transparent 90%, black 97.5% );
+  /* opacity increases as pointer gets near edge */
+  opacity: calc((var(--pointer-d) - var(--glow-sens)) / (100 - var(--glow-sens)));
+  mix-blend-mode: var(--glow-blend);
+}
+.card > .glow::before {
+  content: "";
+  position: absolute;
+  inset: var(--outset);
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px hsl( var(--glow-color) / 100%), inset 0 0 1px 0 hsl( var(--glow-color) / calc(var(--glow-boost) + 60%)), inset 0 0 3px 0 hsl( var(--glow-color) / calc(var(--glow-boost) + 50%)), inset 0 0 6px 0 hsl( var(--glow-color) / calc(var(--glow-boost) + 40%)), inset 0 0 15px 0 hsl( var(--glow-color) / calc(var(--glow-boost) + 30%)), inset 0 0 25px 2px hsl( var(--glow-color) / calc(var(--glow-boost) + 20%)), inset 0 0 50px 2px hsl( var(--glow-color) / calc(var(--glow-boost) + 10%)), 0 0 1px 0 hsl( var(--glow-color) / calc(var(--glow-boost) + 60%)), 0 0 3px 0 hsl( var(--glow-color) / calc(var(--glow-boost) + 50%)), 0 0 6px 0 hsl( var(--glow-color) / calc(var(--glow-boost) + 40%)), 0 0 15px 0 hsl( var(--glow-color) / calc(var(--glow-boost) + 30%)), 0 0 25px 2px hsl( var(--glow-color) / calc(var(--glow-boost) + 20%)), 0 0 50px 2px hsl( var(--glow-color) / calc(var(--glow-boost) + 10%));
+}
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px, rgba(0, 0, 0, 0.1) 0px 2px 4px, rgba(0, 0, 0, 0.1) 0px 4px 8px, rgba(0, 0, 0, 0.1) 0px 8px 16px, rgba(0, 0, 0, 0.1) 0px 16px 32px, rgba(0, 0, 0, 0.1) 0px 32px 64px;
+}
+
+.inner {
+  text-align: center;
+}
+.inner h2 {
+  color: inherit;
+  font-weight: 500;
+  font-size: 1.25em;
+  margin-block: 0.5em;
+}
+.inner header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1em;
+}
+.inner svg {
+  height: 24px;
+}
+
+.card .inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  container-type: inline-size;
+  position: relative;
+  overflow: auto;
+  z-index: 1;
+}
+
+.card .content {
+  padding: 1em;
+  font-weight: 300;
+  text-align: left;
+  line-height: 1.4;
+  color: color-mix(var(--fg), transparent 60%);
+  overflow: auto;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient( to top, transparent 5px, black 2em);
+  mask-image: linear-gradient( to top, transparent 5px, black 2em);
+}
+.card .content em, 
+.card .content strong {
+  color: color-mix(var(--fg), transparent 40%);
+}
+.card .content p {
+  opacity: 0;
+  -webkit-animation: fadeContent 1.5s ease-in-out 2s both;
+  animation: fadeContent 1.5s ease-in-out 2s both;
+}
+.card .content p:nth-child(2) {
+  -webkit-animation-delay: 2.25s;
+  animation-delay: 2.25s;
+}
+.card .content p:nth-child(3) {
+  -webkit-animation-delay: 2.5s;
+  animation-delay: 2.5s;
+}
+.card .content p:nth-child(4) {
+  -webkit-animation-delay: 2.75s;
+  animation-delay: 2.75s;
+}
+
+@-webkit-keyframes fadeContent {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeContent {
+  to {
+    opacity: 1;
+  }
+}
+
+body, html {
+  height: 100svh;
+  overflow: auto;
+  background: hsl(var(--h), 18%, 12%);
+}
+
+main {
+  justify-items: center;
+  align-content: center;
+  min-height: 100%;
+}
+
+.sun {
+  opacity: 0.25;
+}
+.sun:hover {
+  opacity: 1;
+}
+.moon {
+  opacty: 1;
+}
+.sun, .moon {
+  transition: all 0.2s ease;
+}
+
+.light {
+  --link: hsl(var(--canvas), 90%, 50%);
+  --linkh: hsl(150, 85%, 40%);
+}
+.light .sun {
+  opacity: 1;
+}
+.light .moon {
+  opacity: 0.25;
+}
+.light .moon:hover {
+  opacity: 1;
+}
+.light h2 {
+  text-shadow: 0 1px 1px lightslategray;
+}
+
+/* Additional Diwali Website Styles */
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+aside {
+  width: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.badge {
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #54a0ff);
+  background-size: 400% 400%;
+  animation: gradientShift 3s ease infinite;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.lead {
+  font-size: 1.1rem;
+  max-width: 600px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.events {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.thumb {
+  height: 200px;
+  overflow: hidden;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .thumb img {
+  transform: scale(1.1);
+}
+
+.meta {
+  padding: 1.5rem;
+}
+
+.meta h3 {
+  color: #feca57;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.meta p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.small {
+  font-size: 0.9rem;
+}
+
+.muted {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn.primary {
+  background: linear-gradient(45deg, #ff6b6b, #feca57);
+  border: none;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #feca57;
+  color: #feca57;
+}
+
+.controls {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+#fireworksCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  z-index: 1001;
+  display: none;
+  animation: slideIn 0.3s ease;
+}
+
+.toast.success {
+  background: rgba(76, 175, 80, 0.9);
+}
+
+.toast.error {
+  background: rgba(244, 67, 54, 0.9);
+}
+
+.toast.blessing {
+  background: rgba(255, 193, 7, 0.9);
+  color: #000;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.notes-list {
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.record-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  border-left: 3px solid #feca57;
+}
+
+.record-item h5 {
+  color: #feca57;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.record-item p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  margin-bottom: 1rem;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.record-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  
+  aside {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .events {
+    grid-template-columns: 1fr;
+  }
+  
+  .actions {
+    justify-content: center;
+  }
+}
