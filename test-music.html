@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Player Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-container { max-width: 800px; margin: 0 auto; }
+        .cover-test { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+        .cover-test img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎵 Music Player Test</h1>
+        
+        <div id="status"></div>
+        
+        <h2>Cover Images Test</h2>
+        <div class="cover-test" id="coverTest"></div>
+        
+        <h2>Button Test Results</h2>
+        <div id="buttonTest"></div>
+    </div>
+
+    <script>
+        // Test cover images
+        const coverImages = [
+            'msc/cover1.jpg',
+            'msc/cover2.jpg',
+            'msc/cover3.jpg',
+            'msc/cover4.jpg',
+            'msc/cover5.jpg',
+            'msc/cover6.jpg'
+        ];
+        
+        const statusDiv = document.getElementById('status');
+        const coverTestDiv = document.getElementById('coverTest');
+        const buttonTestDiv = document.getElementById('buttonTest');
+        
+        function addStatus(message, isError = false) {
+            const div = document.createElement('div');
+            div.className = `status ${isError ? 'error' : 'success'}`;
+            div.textContent = message;
+            statusDiv.appendChild(div);
+        }
+        
+        function addButtonTest(test, result) {
+            const div = document.createElement('div');
+            div.className = `status ${result ? 'success' : 'error'}`;
+            div.textContent = `${test}: ${result ? '✓ PASS' : '✗ FAIL'}`;
+            buttonTestDiv.appendChild(div);
+        }
+        
+        // Test cover images
+        let imageTests = 0;
+        let imageSuccess = 0;
+        
+        coverImages.forEach((src, index) => {
+            const img = new Image();
+            img.onload = function() {
+                imageSuccess++;
+                addStatus(`Cover ${index + 1} loaded successfully: ${src}`);
+                const testImg = document.createElement('img');
+                testImg.src = src;
+                testImg.alt = `Cover ${index + 1}`;
+                coverTestDiv.appendChild(testImg);
+            };
+            img.onerror = function() {
+                addStatus(`Failed to load cover ${index + 1}: ${src}`, true);
+            };
+            img.src = src;
+            imageTests++;
+        });
+        
+        // Test main page elements
+        fetch('index.html')
+            .then(response => response.text())
+            .then(html => {
+                const hasPlayPause = html.includes('play-pause-btn');
+                const hasNext = html.includes('next-btn');
+                const hasPrevious = html.includes('previous-btn');
+                const hasShuffle = html.includes('shuffle-btn');
+                const hasVolume = html.includes('volume-btn');
+                const hasArtwork = html.includes('artwork-image');
+                
+                addButtonTest('Play/Pause Button', hasPlayPause);
+                addButtonTest('Next Button', hasNext);
+                addButtonTest('Previous Button', hasPrevious);
+                addButtonTest('Shuffle Button', hasShuffle);
+                addButtonTest('Volume Button', hasVolume);
+                addButtonTest('Artwork Image Element', hasArtwork);
+                
+                if (imageTests === imageSuccess) {
+                    addStatus(`All ${imageTests} cover images loaded successfully!`);
+                } else {
+                    addStatus(`${imageSuccess}/${imageTests} cover images loaded`, true);
+                }
+            })
+            .catch(error => {
+                addStatus('Error loading index.html: ' + error.message, true);
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story - 579 Days Together</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Hero Section with Disco Ball -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="disco-ball" id="discoBall">
+                    <div class="disco-square" data-color="pink" data-memory="Our first dance together!"></div>
+                    <div class="disco-square" data-color="blue" data-memory="That time we got lost but found each other"></div>
+                    <div class="disco-square" data-color="yellow" data-memory="Our first concert together"></div>
+                    <div class="disco-square" data-color="teal" data-memory="Picnics in the park"></div>
+                    <div class="disco-square" data-color="green" data-memory="Movie nights curled up"></div>
+                    <div class="disco-square" data-color="purple" data-memory="Our cooking adventures"></div>
+                </div>
+                <p class="hero-subtitle">One Year, Seven Months</p>
+                <h1 class="hero-title">579 Days with You</h1>
+                <p class="hero-quote">"Every moment with you feels like a beautiful dream I never want to wake up from."</p>
+                <div class="floating-elements">
+                    <span class="floating-star">⭐</span>
+                    <span class="floating-heart">💖</span>
+                    <span class="floating-music">🎵</span>
+                    <span class="floating-sparkle">✨</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Relationship Duration Cards -->
+    <section class="duration-section">
+        <div class="container">
+            <div class="duration-cards">
+                <div class="duration-card">
+                    <div class="duration-value">1</div>
+                    <div class="duration-label">Year</div>
+                </div>
+                <div class="duration-card">
+                    <div class="duration-value">7</div>
+                    <div class="duration-label">Months</div>
+                </div>
+                <div class="duration-card">
+                    <div class="duration-value">19</div>
+                    <div class="duration-label">Total Months</div>
+                </div>
+                <div class="duration-card">
+                    <div class="duration-value">82</div>
+                    <div class="duration-label">Weeks</div>
+                </div>
+                <div class="duration-card">
+                    <div class="duration-value">579</div>
+                    <div class="duration-label">Calendar Days</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Fireworks Celebration Section -->
+    <section class="celebration-section">
+        <div class="container">
+            <h2 class="section-title">Celebrate Our Love</h2>
+            <div class="celebration-content">
+                <p class="celebration-text">579 days of pure happiness deserves a celebration!</p>
+                <div class="celebration-buttons">
+                    <button class="btn firework" id="fireworksBtn">🎆 Launch Fireworks!</button>
+                    <button class="btn primary" id="boomAllBtn">✨ Celebrate Everything!</button>
+                    <button class="btn" id="confettiBtn">🎉 Throw Confetti!</button>
+                </div>
+            </div>
+        </div>
+        <div class="glass-overlay"></div>
+        <canvas id="tubesCursorCanvas" class="tubes-cursor-canvas"></canvas>
+    </section>
+
+    <!-- Interactive Music Section -->
+    <section class="music-section">
+        <div class="container">
+            <h2 class="section-title">Our Soundtrack</h2>
+            
+            <!-- Card Music Player -->
+            <div class="card-player-container">
+                <div class="music-card">
+                    <div class="album-artwork">
+                        <div class="artwork-image">
+                            <!-- Background image will be set via CSS/JS -->
+                        </div>
+                        <div class="artwork-overlay">
+                            <div class="visualizer-bars">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </div>
+                            <div class="thunderbolt-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="player-info">
+                        <div class="progress-section">
+                            <div class="time-display">
+                                <span class="current-time">0:00</span>
+                                <span class="remaining-time">-0:00</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-line"></div>
+                                <div class="progress-fill"></div>
+                                <div class="progress-thumb"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="song-info">
+                            <h3 class="song-title">CORNFIELD CHASE</h3>
+                            <p class="song-artist">HANS ZIMMER</p>
+                        </div>
+                        
+                        <div class="control-buttons">
+                            <button class="control-btn playlist-btn" title="Playlist">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <button class="control-btn volume-btn" title="Volume">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button class="control-btn previous-btn" title="Previous">
+                                <i class="fas fa-backward"></i>
+                            </button>
+                            <button class="control-btn play-pause-btn" title="Play">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button class="control-btn next-btn" title="Next">
+                                <i class="fas fa-forward"></i>
+                            </button>
+                            <button class="control-btn shuffle-btn" title="Shuffle">
+                                <i class="fas fa-random"></i>
+                            </button>
+                            <button class="control-btn add-btn" title="Add to Playlist">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Chat History Section -->
+    <section class="chat-section">
+        <div class="container">
+            <h2 class="section-title">Sweet Conversations</h2>
+            <div class="chat-container">
+                <div class="chat-message user-message">
+                    <div class="message-content">
+                        <p>"Good morning, beautiful! I love waking up knowing you're in my life ❤️"</p>
+                        <span class="message-time">7:30 AM</span>
+                    </div>
+                </div>
+                <div class="chat-message partner-message">
+                    <div class="message-content">
+                        <p>"Good morning, my love! You make every day feel like a gift ✨"</p>
+                        <span class="message-time">7:45 AM</span>
+                    </div>
+                </div>
+                <div class="chat-message user-message">
+                    <div class="message-content">
+                        <p>"Can't wait to see you later. You always light up my day!"</p>
+                        <span class="message-time">2:15 PM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="basketball-footer">
+                <div class="basketball" id="basketball"></div>
+            </div>
+            <p class="footer-text">Made with love, for you ❤️</p>
+            <p class="footer-subtitle">579 days and counting...</p>
+            <div class="footer-stats">
+                <span>🎮 Player 1 + Player 2 = Perfect Team</span>
+                <span>🎵 Soundtrack: Our Beautiful Life</span>
+                <span>🏀 We score together every day</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Modal for Interactive Elements -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" id="modalClose">×</button>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Fireworks Canvas -->
+    <canvas id="fireworksCanvas"></canvas>
+
+    <!-- Toast Container -->
+    <div id="toast" class="toast">Hello</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/fun-elements.js"></script>
+    <script src="scripts/enhanced-effects.js"></script>
+</body>
+</html>
